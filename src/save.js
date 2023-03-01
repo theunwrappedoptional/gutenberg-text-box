@@ -18,7 +18,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 export default function save() {
 	return (
 		<p { ...useBlockProps.save() }>
-			{ 'Boilerplate – hello from the saved content!' }
+			{ 'Boilerplate – Hello from the saved content!' }
 		</p>
 	);
 }

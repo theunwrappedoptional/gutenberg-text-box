@@ -11,7 +11,18 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import {
+	useBlockProps,
+	RichText,
+	BlockControls,
+	AlignmentToolbar,
+} from '@wordpress/block-editor';
+
+// import {
+// 	ToolbarGroup,
+// 	ToolbarButton,
+// 	ToolbarDropdownMenu,
+// } from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -31,16 +42,36 @@ import './editor.scss';
  */
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { text } = attributes;
+	const { text, alignment } = attributes;
+
+	const onChangeText = ( newText ) => {
+		setAttributes( { text: newText } );
+	};
+
+	const onChangeAlignment = ( newAlignment ) => {
+		setAttributes( { alignment: newAlignment } );
+	};
 
 	return (
-		<RichText
-			{ ...useBlockProps() }
-			onChange={ ( value ) => setAttributes( { text: value } ) }
-			tagName="h4"
-			value={ text }
-			placeholder={ __( 'Your text', 'text-box' ) }
-			allowedFormats={ [ 'core/bold' ] }
-		/>
+		<>
+			<BlockControls>
+				<AlignmentToolbar
+					value={ alignment }
+					onChange={ onChangeAlignment }
+				/>
+			</BlockControls>
+
+			<RichText
+				{ ...useBlockProps( {
+					className: `text-box-align-${ alignment }`,
+				} ) }
+				onChange={ onChangeText }
+				tagName="h4"
+				value={ text }
+				placeholder={ __( 'Your text', 'text-box' ) }
+				allowedFormats={ [] }
+				style={ { textAlign: alignment } }
+			/>
+		</>
 	);
 }

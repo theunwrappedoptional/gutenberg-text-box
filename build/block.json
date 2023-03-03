@@ -1,9 +1,10 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "blocks-course/text-block",
+  "name": "blocks-course/text-box",
+  "icon": "media-text",
   "version": "0.1.0",
-  "title": "Text Block",
+  "title": "Text Box",
   "category": "text",
   "description": "A box of text",
   "keywords": [
@@ -17,5 +18,12 @@
   "textdomain": "text-box",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css"
+  "style": "file:./style-index.css",
+  "attributes": {
+    "text": {
+      "type": "string",
+      "source": "html",
+      "selector": "h4"
+    }
+  }
 }

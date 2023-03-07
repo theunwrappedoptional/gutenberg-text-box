@@ -19,6 +19,7 @@ import {
 	InspectorControls,
 	PanelColorSettings,
 	ContrastChecker,
+	withColors,
 } from '@wordpress/block-editor';
 
 import // ToolbarGroup,
@@ -51,8 +52,17 @@ import './editor.scss';
  * @return {WPElement} Element to render.
  */
 
-export default function Edit( { attributes, setAttributes } ) {
-	const { text, alignment, backgroundColor, textColor } = attributes;
+function Edit( props ) {
+	const {
+		attributes,
+		setAttributes,
+		backgroundColor,
+		textColor,
+		setBackgroundColor,
+		setTextColor,
+	} = props;
+
+	const { text, alignment } = attributes;
 
 	const onChangeText = ( newText ) => {
 		setAttributes( { text: newText } );
@@ -62,13 +72,13 @@ export default function Edit( { attributes, setAttributes } ) {
 		setAttributes( { alignment: newAlignment } );
 	};
 
-	const onChangeBackgroundColor = ( newBackgroundColor ) => {
-		setAttributes( { backgroundColor: newBackgroundColor } );
-	};
+	// const onChangeBackgroundColor = ( newBackgroundColor ) => {
+	// 	setAttributes( { backgroundColor: newBackgroundColor } );
+	// };
 
-	const onChangeTextColor = ( newTextColor ) => {
-		setAttributes( { textColor: newTextColor } );
-	};
+	// const onChangeTextColor = ( newTextColor ) => {
+	// 	setAttributes( { textColor: newTextColor } );
+	// };
 
 	return (
 		<>
@@ -79,20 +89,20 @@ export default function Edit( { attributes, setAttributes } ) {
 					initialOpen
 					colorSettings={ [
 						{
-							value: backgroundColor,
-							onChange: onChangeBackgroundColor,
+							value: backgroundColor.color,
+							onChange: setBackgroundColor,
 							label: __( 'Background Color', 'text-box' ),
 						},
 						{
-							value: textColor,
-							onChange: onChangeTextColor,
+							value: textColor.color,
+							onChange: setTextColor,
 							label: __( 'Text Color', 'text-box' ),
 						},
 					] }
 				>
 					<ContrastChecker
-						textColor={ textColor }
-						backgroundColor={ backgroundColor }
+						textColor={ textColor.color }
+						backgroundColor={ backgroundColor.color }
 					/>
 				</PanelColorSettings>
 			</InspectorControls>
@@ -106,7 +116,10 @@ export default function Edit( { attributes, setAttributes } ) {
 
 			<RichText
 				{ ...useBlockProps( {
-					style: { backgroundColor, color: textColor },
+					style: {
+						backgroundColor: backgroundColor.color,
+						color: textColor.color,
+					},
 					className: `text-box-align-${ alignment }`,
 				} ) }
 				onChange={ onChangeText }
@@ -118,3 +131,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		</>
 	);
 }
+
+export default withColors( {
+	backgroundColor: 'backgroundColor',
+	textColor: 'color',
+} )( Edit );

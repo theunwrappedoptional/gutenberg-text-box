@@ -43,9 +43,6 @@ export default function save( { attributes } ) {
 		[ backgroundClass ]: backgroundClass,
 	} );
 
-	// console.log(backgroundClass, textClass);
-	// console.log(classes);
-
 	return (
 		<RichText.Content
 			{ ...useBlockProps.save( {

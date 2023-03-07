@@ -35,6 +35,8 @@ import // ToolbarGroup,
 // ColorPalette
 '@wordpress/components';
 
+import classnames from 'classnames';
+
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -72,13 +74,10 @@ function Edit( props ) {
 		setAttributes( { alignment: newAlignment } );
 	};
 
-	// const onChangeBackgroundColor = ( newBackgroundColor ) => {
-	// 	setAttributes( { backgroundColor: newBackgroundColor } );
-	// };
-
-	// const onChangeTextColor = ( newTextColor ) => {
-	// 	setAttributes( { textColor: newTextColor } );
-	// };
+	const classes = classnames( `text-box-align-${ alignment }`, {
+		[ textColor.class ]: textColor.class,
+		[ backgroundColor.class ]: backgroundColor.class,
+	} );
 
 	return (
 		<>
@@ -117,10 +116,12 @@ function Edit( props ) {
 			<RichText
 				{ ...useBlockProps( {
 					style: {
-						backgroundColor: backgroundColor.color,
-						color: textColor.color,
+						backgroundColor: backgroundColor.class
+							? undefined
+							: backgroundColor.color,
+						color: textColor.class ? undefined : textColor.color,
 					},
-					className: `text-box-align-${ alignment }`,
+					className: classes,
 				} ) }
 				onChange={ onChangeText }
 				tagName="h4"
@@ -133,6 +134,6 @@ function Edit( props ) {
 }
 
 export default withColors( {
-	backgroundColor: 'backgroundColor',
+	backgroundColor: 'background-color',
 	textColor: 'color',
 } )( Edit );

@@ -16,16 +16,15 @@ import {
 	RichText,
 	BlockControls,
 	AlignmentToolbar,
-	InspectorControls,
-	PanelColorSettings,
-	ContrastChecker,
-	withColors,
+	// InspectorControls,
+	// PanelColorSettings,
+	// ContrastChecker,
+	// withColors,
 } from '@wordpress/block-editor';
 
 import // ToolbarGroup,
 // ToolbarButton,
 // ToolbarDropdownMenu,
-
 // PanelBody,
 // TextControl,
 // TextareaControl,
@@ -54,15 +53,8 @@ import './editor.scss';
  * @return {WPElement} Element to render.
  */
 
-function Edit( props ) {
-	const {
-		attributes,
-		setAttributes,
-		backgroundColor,
-		textColor,
-		setBackgroundColor,
-		setTextColor,
-	} = props;
+export default function Edit( props ) {
+	const { attributes, setAttributes } = props;
 
 	const { text, alignment } = attributes;
 
@@ -74,38 +66,10 @@ function Edit( props ) {
 		setAttributes( { alignment: newAlignment } );
 	};
 
-	const classes = classnames( `text-box-align-${ alignment }`, {
-		[ textColor.class ]: textColor.class,
-		[ backgroundColor.class ]: backgroundColor.class,
-	} );
+	const classes = classnames( `text-box-align-${ alignment }` );
 
 	return (
 		<>
-			<InspectorControls>
-				<PanelColorSettings
-					title={ __( 'Color Settings', 'text-box' ) }
-					icon="admin-appearance"
-					initialOpen
-					colorSettings={ [
-						{
-							value: backgroundColor.color,
-							onChange: setBackgroundColor,
-							label: __( 'Background Color', 'text-box' ),
-						},
-						{
-							value: textColor.color,
-							onChange: setTextColor,
-							label: __( 'Text Color', 'text-box' ),
-						},
-					] }
-				>
-					<ContrastChecker
-						textColor={ textColor.color }
-						backgroundColor={ backgroundColor.color }
-					/>
-				</PanelColorSettings>
-			</InspectorControls>
-
 			<BlockControls>
 				<AlignmentToolbar
 					value={ alignment }
@@ -115,12 +79,6 @@ function Edit( props ) {
 
 			<RichText
 				{ ...useBlockProps( {
-					style: {
-						backgroundColor: backgroundColor.class
-							? undefined
-							: backgroundColor.color,
-						color: textColor.class ? undefined : textColor.color,
-					},
 					className: classes,
 				} ) }
 				onChange={ onChangeText }
@@ -132,8 +90,3 @@ function Edit( props ) {
 		</>
 	);
 }
-
-export default withColors( {
-	backgroundColor: 'background-color',
-	textColor: 'color',
-} )( Edit );

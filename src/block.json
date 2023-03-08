@@ -7,9 +7,18 @@
 	"title": "Text Box",
 	"category": "text",
 	"description": "A box of text",
-	"keywords": [ "text", "paragraph", "box" ],
+	"keywords": [
+		"text",
+		"paragraph",
+		"box"
+	],
 	"supports": {
-		"html": false
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true,
+			"gradients": true
+		}
 	},
 	"textdomain": "text-box",
 	"editorScript": "file:./index.js",
@@ -31,11 +40,14 @@
 		"textColor": {
 			"type": "string"
 		},
-		"customBackgroundColor": {
-			"type": "string"
-		},
-		"customTextColor": {
-			"type": "string"
+		"style": {
+			"type": "object",
+			"default": {
+				"color": {
+					"background": "#f03",
+					"text": "#fff"
+				}
+			}
 		}
 	}
 }

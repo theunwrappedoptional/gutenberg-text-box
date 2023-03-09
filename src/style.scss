@@ -7,6 +7,10 @@
 
 .wp-block-blocks-course-text-box {
 
+	&.has-shadow {
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+	}
+
 	&.text-box-align-right {
 		text-align: right;
 	}

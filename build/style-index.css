@@ -7,6 +7,9 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
+.wp-block-blocks-course-text-box.has-shadow {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
 .wp-block-blocks-course-text-box.text-box-align-right {
   text-align: right;
 }

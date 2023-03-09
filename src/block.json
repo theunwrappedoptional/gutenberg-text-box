@@ -7,17 +7,17 @@
 	"title": "Text Box",
 	"category": "text",
 	"description": "A box of text",
-	"keywords": [
-		"text",
-		"paragraph",
-		"box"
-	],
+	"keywords": [ "text", "paragraph", "box" ],
 	"supports": {
 		"html": false,
 		"color": {
 			"background": true,
 			"text": true,
 			"gradients": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
 		}
 	},
 	"textdomain": "text-box",
@@ -34,11 +34,8 @@
 			"type": "string",
 			"default": "left"
 		},
-		"backgroundColor": {
-			"type": "string"
-		},
-		"textColor": {
-			"type": "string"
+		"shadow": {
+			"type": "boolean"
 		},
 		"style": {
 			"type": "object",
@@ -46,6 +43,20 @@
 				"color": {
 					"background": "#f03",
 					"text": "#fff"
+				},
+				"spacing": {
+					"padding": {
+						"top": "0",
+						"right": "0",
+						"bottom": "0",
+						"left": "0"
+					},
+					"margin": {
+						"top": "0",
+						"right": "0",
+						"bottom": "0",
+						"left": "0"
+					}
 				}
 			}
 		}

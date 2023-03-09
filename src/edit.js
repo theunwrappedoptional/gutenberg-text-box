@@ -31,7 +31,7 @@ import // ToolbarGroup,
 // ToggleControl,
 // AnglePickerControl,
 // ColorPicker,
-// ColorPalette
+// ColorPalette,
 '@wordpress/components';
 
 import classnames from 'classnames';
@@ -55,8 +55,7 @@ import './editor.scss';
 
 export default function Edit( props ) {
 	const { attributes, setAttributes } = props;
-
-	const { text, alignment } = attributes;
+	const { text, alignment, shadow } = attributes;
 
 	const onChangeText = ( newText ) => {
 		setAttributes( { text: newText } );
@@ -66,11 +65,26 @@ export default function Edit( props ) {
 		setAttributes( { alignment: newAlignment } );
 	};
 
-	const classes = classnames( `text-box-align-${ alignment }` );
+	const toggleShadow = () => {
+		setAttributes( { shadow: ! shadow } );
+	};
+
+	const classes = classnames( `text-box-align-${ alignment }`, {
+		'has-shadow': shadow,
+	} );
 
 	return (
 		<>
-			<BlockControls>
+			<BlockControls
+				controls={ [
+					{
+						icon: 'admin-page',
+						title: __( 'Shadow', 'text-box' ),
+						onClick: toggleShadow,
+						isActive: shadow,
+					},
+				] }
+			>
 				<AlignmentToolbar
 					value={ alignment }
 					onChange={ onChangeAlignment }

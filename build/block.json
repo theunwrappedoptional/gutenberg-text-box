@@ -24,6 +24,37 @@
       "padding": true
     }
   },
+  "example": {
+    "attributes": {
+      "text": "Text Box Example",
+      "alignment": "left",
+      "gradient": "luminous-vivid-amber-to-luminous-vivid-orange",
+      "style": {
+        "color": {
+          "text": "#fff"
+        },
+        "spacing": {
+          "padding": {
+            "top": "50px",
+            "right": "10px",
+            "bottom": "50px",
+            "left": "10px"
+          }
+        }
+      }
+    }
+  },
+  "styles": [
+    {
+      "name": "squared",
+      "label": "Squared",
+      "isDefault": true
+    },
+    {
+      "name": "rounded",
+      "label": "Rounded"
+    }
+  ],
   "textdomain": "text-box",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
@@ -41,6 +72,10 @@
     "shadow": {
       "type": "boolean"
     },
+    "shadowOpacity": {
+      "type": "number",
+      "default": 30
+    },
     "style": {
       "type": "object",
       "default": {
@@ -50,10 +85,10 @@
         },
         "spacing": {
           "padding": {
-            "top": "0",
-            "right": "0",
-            "bottom": "0",
-            "left": "0"
+            "top": "20px",
+            "right": "10px",
+            "bottom": "20px",
+            "left": "10px"
           },
           "margin": {
             "top": "0",

@@ -40,16 +40,6 @@ __webpack_require__.r(__webpack_exports__);
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 
- // ToolbarGroup,
-// ToolbarButton,
-// ToolbarDropdownMenu,
-// PanelBody,
-// TextControl,
-// TextareaControl,
-// ToggleControl,
-// AnglePickerControl,
-// ColorPicker,
-// ColorPalette,
 
 
 
@@ -78,7 +68,8 @@ function Edit(props) {
   const {
     text,
     alignment,
-    shadow
+    shadow,
+    shadowOpacity
   } = attributes;
   const onChangeText = newText => {
     setAttributes({
@@ -95,13 +86,28 @@ function Edit(props) {
       shadow: !shadow
     });
   };
+  const onChangeShadowOpacity = newShadowOpacity => {
+    setAttributes({
+      shadowOpacity: newShadowOpacity
+    });
+  };
   const classes = classnames__WEBPACK_IMPORTED_MODULE_5___default()(`text-box-align-${alignment}`, {
-    'has-shadow': shadow
+    'has-shadow': shadow,
+    [`shadow-opacity-${shadowOpacity}`]: shadow && shadowOpacity
   });
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.BlockControls, {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, shadow && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Shadow Settings', 'text-box')
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Shadow Opacity', 'text-box'),
+    value: shadowOpacity,
+    min: 10,
+    max: 40,
+    step: 10,
+    onChange: onChangeShadowOpacity
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.BlockControls, {
     controls: [{
       icon: 'admin-page',
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Shadow", "text-box"),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Shadow', 'text-box'),
       onClick: toggleShadow,
       isActive: shadow
     }]
@@ -221,9 +227,14 @@ function save(_ref) {
   } = _ref;
   const {
     text,
-    alignment
+    alignment,
+    shadow,
+    shadowOpacity
   } = attributes;
-  const classes = classnames__WEBPACK_IMPORTED_MODULE_3___default()(`text-box-align-${alignment}`);
+  const classes = classnames__WEBPACK_IMPORTED_MODULE_3___default()(`text-box-align-${alignment}`, {
+    'has-shadow': shadow,
+    [`shadow-opacity-${shadowOpacity}`]: shadow && shadowOpacity
+  });
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText.Content, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save({
     className: classes
   }), {
@@ -419,7 +430,7 @@ function _extends() {
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"blocks-course/text-box","icon":"media-text","version":"0.1.0","title":"Text Box","category":"text","description":"A box of text","keywords":["text","paragraph","box"],"supports":{"html":false,"color":{"background":true,"text":true,"gradients":true},"spacing":{"margin":true,"padding":true}},"textdomain":"text-box","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"text":{"type":"string","source":"html","selector":"h4"},"alignment":{"type":"string","default":"left"},"shadow":{"type":"boolean"},"style":{"type":"object","default":{"color":{"background":"#f03","text":"#fff"},"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"},"margin":{"top":"0","right":"0","bottom":"0","left":"0"}}}}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"blocks-course/text-box","icon":"media-text","version":"0.1.0","title":"Text Box","category":"text","description":"A box of text","keywords":["text","paragraph","box"],"supports":{"html":false,"color":{"background":true,"text":true,"gradients":true},"spacing":{"margin":true,"padding":true}},"example":{"attributes":{"text":"Text Box Example","alignment":"left","gradient":"luminous-vivid-amber-to-luminous-vivid-orange","style":{"color":{"text":"#fff"},"spacing":{"padding":{"top":"50px","right":"10px","bottom":"50px","left":"10px"}}}}},"styles":[{"name":"squared","label":"Squared","isDefault":true},{"name":"rounded","label":"Rounded"}],"textdomain":"text-box","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"text":{"type":"string","source":"html","selector":"h4"},"alignment":{"type":"string","default":"left"},"shadow":{"type":"boolean"},"shadowOpacity":{"type":"number","default":30},"style":{"type":"object","default":{"color":{"background":"#f03","text":"#fff"},"spacing":{"padding":{"top":"20px","right":"10px","bottom":"20px","left":"10px"},"margin":{"top":"0","right":"0","bottom":"0","left":"0"}}}}}}');
 
 /***/ })
 

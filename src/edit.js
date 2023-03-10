@@ -16,23 +16,25 @@ import {
 	RichText,
 	BlockControls,
 	AlignmentToolbar,
-	// InspectorControls,
+	InspectorControls,
 	// PanelColorSettings,
 	// ContrastChecker,
 	// withColors,
 } from '@wordpress/block-editor';
 
-import // ToolbarGroup,
-// ToolbarButton,
-// ToolbarDropdownMenu,
-// PanelBody,
-// TextControl,
-// TextareaControl,
-// ToggleControl,
-// AnglePickerControl,
-// ColorPicker,
-// ColorPalette,
-'@wordpress/components';
+import {
+	// ToolbarGroup,
+	// ToolbarButton,
+	// ToolbarDropdownMenu,
+	PanelBody,
+	RangeControl,
+	// TextControl,
+	// TextareaControl,
+	// ToggleControl,
+	// AnglePickerControl,
+	// ColorPicker,
+	// ColorPalette,
+} from '@wordpress/components';
 
 import classnames from 'classnames';
 
@@ -55,7 +57,7 @@ import './editor.scss';
 
 export default function Edit( props ) {
 	const { attributes, setAttributes } = props;
-	const { text, alignment, shadow } = attributes;
+	const { text, alignment, shadow, shadowOpacity } = attributes;
 
 	const onChangeText = ( newText ) => {
 		setAttributes( { text: newText } );
@@ -69,12 +71,32 @@ export default function Edit( props ) {
 		setAttributes( { shadow: ! shadow } );
 	};
 
+	const onChangeShadowOpacity = ( newShadowOpacity ) => {
+		setAttributes( { shadowOpacity: newShadowOpacity } );
+	};
+
 	const classes = classnames( `text-box-align-${ alignment }`, {
 		'has-shadow': shadow,
+		[ `shadow-opacity-${ shadowOpacity }` ]: shadow && shadowOpacity,
 	} );
 
 	return (
 		<>
+			<InspectorControls>
+				{ shadow && (
+					<PanelBody title={ __( 'Shadow Settings', 'text-box' ) }>
+						<RangeControl
+							label={ __( 'Shadow Opacity', 'text-box' ) }
+							value={ shadowOpacity }
+							min={ 10 }
+							max={ 40 }
+							step={ 10 }
+							onChange={ onChangeShadowOpacity }
+						/>
+					</PanelBody>
+				) }
+			</InspectorControls>
+
 			<BlockControls
 				controls={ [
 					{

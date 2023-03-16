@@ -177,7 +177,55 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * @see ./save.js
    */
-  save: _save__WEBPACK_IMPORTED_MODULE_3__["default"]
+  save: _save__WEBPACK_IMPORTED_MODULE_3__["default"],
+  transforms: {
+    from: [{
+      type: "block",
+      blocks: ["core/paragraph"],
+      transform: _ref => {
+        let {
+          content,
+          align
+        } = _ref;
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("blocks-course/text-box", {
+          text: content,
+          alignment: align
+        });
+      }
+    }, {
+      type: "enter",
+      regExp: /textbox/i,
+      transform: () => {
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("blocks-course/text-box");
+      }
+    }, {
+      type: "prefix",
+      prefix: "textbox",
+      transform: () => {
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("blocks-course/text-box");
+      }
+    }],
+    to: [{
+      type: "block",
+      blocks: ["core/paragraph"],
+      isMatch: _ref2 => {
+        let {
+          text
+        } = _ref2;
+        return text ? true : false;
+      },
+      transform: _ref3 => {
+        let {
+          text,
+          alignment
+        } = _ref3;
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("core/paragraph", {
+          content: text,
+          align: alignment
+        });
+      }
+    }]
+  }
 });
 
 /***/ }),

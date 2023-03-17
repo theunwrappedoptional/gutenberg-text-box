@@ -118,7 +118,7 @@ function Edit(props) {
     className: classes
   }), {
     onChange: onChangeText,
-    tagName: "h4",
+    tagName: "p",
     value: text,
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Your text', 'text-box'),
     allowedFormats: []
@@ -141,6 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
 /* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save */ "./src/save.js");
 /* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+/* harmony import */ var _v1__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./v1 */ "./src/v1.js");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -164,6 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /**
  * Every block starts by registering a new block type definition.
  *
@@ -178,36 +180,37 @@ __webpack_require__.r(__webpack_exports__);
    * @see ./save.js
    */
   save: _save__WEBPACK_IMPORTED_MODULE_3__["default"],
+  deprecated: [_v1__WEBPACK_IMPORTED_MODULE_5__["default"]],
   transforms: {
     from: [{
-      type: "block",
-      blocks: ["core/paragraph"],
+      type: 'block',
+      blocks: ['core/paragraph'],
       transform: _ref => {
         let {
           content,
           align
         } = _ref;
-        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("blocks-course/text-box", {
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)('blocks-course/text-box', {
           text: content,
           alignment: align
         });
       }
     }, {
-      type: "enter",
+      type: 'enter',
       regExp: /textbox/i,
       transform: () => {
-        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("blocks-course/text-box");
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)('blocks-course/text-box');
       }
     }, {
-      type: "prefix",
-      prefix: "textbox",
+      type: 'prefix',
+      prefix: 'textbox',
       transform: () => {
-        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("blocks-course/text-box");
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)('blocks-course/text-box');
       }
     }],
     to: [{
-      type: "block",
-      blocks: ["core/paragraph"],
+      type: 'block',
+      blocks: ['core/paragraph'],
       isMatch: _ref2 => {
         let {
           text
@@ -219,7 +222,7 @@ __webpack_require__.r(__webpack_exports__);
           text,
           alignment
         } = _ref3;
-        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)("core/paragraph", {
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)('core/paragraph', {
           content: text,
           align: alignment
         });
@@ -286,10 +289,78 @@ function save(_ref) {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText.Content, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save({
     className: classes
   }), {
-    tagName: "h4",
+    tagName: "p",
     value: text
   }));
 }
+
+/***/ }),
+
+/***/ "./src/v1.js":
+/*!*******************!*\
+  !*** ./src/v1.js ***!
+  \*******************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+
+
+
+
+
+const v1 = {
+  supports: {
+    html: false,
+    color: {
+      background: true,
+      text: true,
+      gradients: true
+    },
+    spacing: {
+      margin: true,
+      padding: true
+    }
+  },
+  attributes: {
+    ..._block_json__WEBPACK_IMPORTED_MODULE_4__.attributes,
+    text: {
+      type: 'string',
+      source: 'html',
+      selector: 'h4'
+    }
+  },
+  save: _ref => {
+    let {
+      attributes
+    } = _ref;
+    const {
+      text,
+      alignment,
+      shadow,
+      shadowOpacity
+    } = attributes;
+    const classes = classnames__WEBPACK_IMPORTED_MODULE_3___default()(`text-box-align-${alignment}`, {
+      'has-shadow': shadow,
+      [`shadow-opacity-${shadowOpacity}`]: shadow && shadowOpacity
+    });
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText.Content, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save({
+      className: classes
+    }), {
+      tagName: "h4",
+      value: text
+    }));
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (v1);
 
 /***/ }),
 
@@ -478,7 +549,7 @@ function _extends() {
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"blocks-course/text-box","icon":"media-text","version":"0.1.0","title":"Text Box","category":"text","description":"A box of text","keywords":["text","paragraph","box"],"supports":{"html":false,"color":{"background":true,"text":true,"gradients":true},"spacing":{"margin":true,"padding":true}},"example":{"attributes":{"text":"Text Box Example","alignment":"left","gradient":"luminous-vivid-amber-to-luminous-vivid-orange","style":{"color":{"text":"#fff"},"spacing":{"padding":{"top":"50px","right":"10px","bottom":"50px","left":"10px"}}}}},"styles":[{"name":"squared","label":"Squared","isDefault":true},{"name":"rounded","label":"Rounded"}],"textdomain":"text-box","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"text":{"type":"string","source":"html","selector":"h4"},"alignment":{"type":"string","default":"left"},"shadow":{"type":"boolean"},"shadowOpacity":{"type":"number","default":30},"style":{"type":"object","default":{"color":{"background":"#f03","text":"#fff"},"spacing":{"padding":{"top":"20px","right":"10px","bottom":"20px","left":"10px"},"margin":{"top":"0","right":"0","bottom":"0","left":"0"}}}}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"blocks-course/text-box","icon":"media-text","version":"0.1.0","title":"Text Box","category":"text","description":"A box of text","keywords":["text","paragraph","box"],"supports":{"html":false,"color":{"background":true,"text":true,"gradients":true},"spacing":{"margin":true,"padding":true}},"example":{"attributes":{"text":"Text Box Example","alignment":"left","gradient":"luminous-vivid-amber-to-luminous-vivid-orange","style":{"color":{"text":"#fff"},"spacing":{"padding":{"top":"50px","right":"10px","bottom":"50px","left":"10px"}}}}},"styles":[{"name":"squared","label":"Squared","isDefault":true},{"name":"rounded","label":"Rounded"}],"textdomain":"text-box","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"text":{"type":"string","source":"html","selector":"p"},"alignment":{"type":"string","default":"left"},"shadow":{"type":"boolean"},"shadowOpacity":{"type":"number","default":30},"style":{"type":"object","default":{"color":{"background":"#f03","text":"#fff"},"spacing":{"padding":{"top":"20px","right":"10px","bottom":"20px","left":"10px"},"margin":{"top":"0","right":"0","bottom":"0","left":"0"}}}}}}');
 
 /***/ })
 

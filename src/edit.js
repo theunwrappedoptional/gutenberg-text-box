@@ -118,7 +118,7 @@ export default function Edit( props ) {
 					className: classes,
 				} ) }
 				onChange={ onChangeText }
-				tagName="h4"
+				tagName="p"
 				value={ text }
 				placeholder={ __( 'Your text', 'text-box' ) }
 				allowedFormats={ [] }
